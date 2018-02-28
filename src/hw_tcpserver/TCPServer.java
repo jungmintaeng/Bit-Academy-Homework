@@ -1,4 +1,4 @@
-package hw2_1;
+package hw_tcpserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;

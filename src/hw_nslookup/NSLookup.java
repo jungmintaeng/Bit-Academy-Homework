@@ -1,4 +1,4 @@
-package hw1_1;
+package hw_nslookup;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
