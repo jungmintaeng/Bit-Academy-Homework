@@ -17,7 +17,8 @@ group by gender;
 
 -- 문제 4
 select count(distinct emp_no)
-from salaries;
+from salaries
+where to_date='9999-01-01';
 
 -- 문제 5
 select count(distinct dept_no)
@@ -26,7 +27,7 @@ from departments;
 -- 문제 6
 select count(*)
 from dept_manager
-where from_date <= now() and to_date >= now();
+where to_date='9999-01-01';
 
 -- 문제 7
 select dept_name
@@ -46,7 +47,7 @@ order by length(title) desc;
 -- 문제 10
 select count(*)
 from titles
-where from_date <= now() and to_date >= now() and lower(title) like '%engineer';
+where from_date <= now() and to_date >= now() and lower(title)='engineer';
 
 -- 문제 11
 select title

@@ -14,13 +14,14 @@ from employees;
 
 -- 문제 4
 select avg(salary)
-from salaries;
+from salaries
+where to_date='9999-01-01';
 
 -- 문제 5
 select max(salary) as '최고연봉',
 		min(salary) as '최저연봉'
 from salaries
-where from_date <= now() and to_date >= now();
+where to_date='9999-01-01';
 
 -- 문제 6
 select
