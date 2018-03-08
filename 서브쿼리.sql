@@ -15,12 +15,20 @@ concat(e.first_name,' ',e.last_name) 이름,
 d.dept_name 부서,
 maxSalary 연봉
 from employees e, departments d, dept_emp de, salaries s, (
-	select s.emp_no maxMan, max(s.salary) maxSalary
-    from salaries s, dept_emp de
-    where s.emp_no=de.emp_no
-    and s.to_date='9999-01-01'
-	and de.to_date='9999-01-01'
-    group by de.dept_no
+	select sa.emp_no maxMan, maxSalary
+	from salaries sa
+	join dept_emp demp on sa.emp_no=demp.emp_no
+    join (
+		select de.dept_no dept_no, max(s.salary) maxSalary
+		from salaries s, dept_emp de
+		where s.emp_no=de.emp_no
+		and s.to_date='9999-01-01'
+		and de.to_date='9999-01-01'
+		group by de.dept_no
+    ) subMax on demp.dept_no=subMax.dept_no
+	where sa.to_date='9999-01-01'
+	and demp.to_date='9999-01-01'
+	and salary= maxSalary
 ) m
 where e.emp_no=de.emp_no
 and e.emp_no=s.emp_no
