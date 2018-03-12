@@ -1,0 +1,180 @@
+-- 카테고리
+ALTER TABLE `JBLOG`.`CATEGORY`
+	DROP FOREIGN KEY `FK_BLOG_TO_CATEGORY`; -- 블로그 -> 카테고리
+
+-- 글
+ALTER TABLE `JBLOG`.`POST`
+	DROP FOREIGN KEY `FK_CATEGORY_TO_POST`; -- 카테고리 -> 글
+
+-- 글
+ALTER TABLE `JBLOG`.`POST`
+	DROP FOREIGN KEY `FK_BLOG_TO_POST`; -- 블로그 -> 글
+
+-- 블로그
+ALTER TABLE `JBLOG`.`BLOG`
+	DROP FOREIGN KEY `FK_USER_TO_BLOG`; -- 사용자 -> 블로그
+
+-- 댓글
+ALTER TABLE `JBLOG`.`COMMENT`
+	DROP FOREIGN KEY `FK_USER_TO_COMMENT`; -- 사용자 -> 댓글
+
+-- 댓글
+ALTER TABLE `JBLOG`.`COMMENT`
+	DROP FOREIGN KEY `FK_POST_TO_COMMENT`; -- 글 -> 댓글
+
+-- 사용자
+CREATE TABLE `JBLOG`.`USER` (
+	`no`       INTEGER     NOT NULL COMMENT '번호', -- 번호
+	`id`       varchar(20) NULL     COMMENT '아이디', -- 아이디
+	`password` varchar(48) NULL     COMMENT '비밀번호', -- 비밀번호
+	`name`     varchar(30) NULL     COMMENT '이름' -- 이름
+)
+COMMENT '사용자';
+
+-- 사용자
+ALTER TABLE `JBLOG`.`USER`
+	ADD CONSTRAINT `PK_USER` -- 사용자 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `JBLOG`.`USER`
+	MODIFY COLUMN `no` INTEGER NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+-- 카테고리
+CREATE TABLE `JBLOG`.`CATEGORY` (
+	`no`      integer     NOT NULL COMMENT '번호', -- 번호
+	`name`    varchar(50) NULL     COMMENT '이름', -- 이름
+	`blog_no` integer     NULL     COMMENT '블로그 번호' -- 블로그 번호
+)
+COMMENT '카테고리';
+
+-- 카테고리
+ALTER TABLE `JBLOG`.`CATEGORY`
+	ADD CONSTRAINT `PK_CATEGORY` -- 카테고리 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `JBLOG`.`CATEGORY`
+	MODIFY COLUMN `no` integer NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+-- 글
+CREATE TABLE `JBLOG`.`POST` (
+	`no`          integer      NOT NULL COMMENT '번호', -- 번호
+	`title`       varchar(50)  NULL     COMMENT '제목', -- 제목
+	`content`     varchar(500) NULL     COMMENT '내용', -- 내용
+	`reg_date`    DATE         NULL     COMMENT '작성일자', -- 작성일자
+	`category_no` integer      NULL     COMMENT '카테고리 번호', -- 카테고리 번호
+	`blog_no`     integer      NULL     COMMENT '블로그 번호' -- 블로그 번호
+)
+COMMENT '글';
+
+-- 글
+ALTER TABLE `JBLOG`.`POST`
+	ADD CONSTRAINT `PK_POST` -- 글 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `JBLOG`.`POST`
+	MODIFY COLUMN `no` integer NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+-- 블로그
+CREATE TABLE `JBLOG`.`BLOG` (
+	`no`         integer      NOT NULL COMMENT '번호', -- 번호
+	`title`      varchar(100) NULL     COMMENT '제목', -- 제목
+	`image`      varchar(255) NULL     COMMENT '대표 이미지', -- 대표 이미지
+	`manager_no` INTEGER      NULL     COMMENT '관리자 번호' -- 관리자 번호
+)
+COMMENT '블로그';
+
+-- 블로그
+ALTER TABLE `JBLOG`.`BLOG`
+	ADD CONSTRAINT `PK_BLOG` -- 블로그 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `JBLOG`.`BLOG`
+	MODIFY COLUMN `no` integer NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+-- 댓글
+CREATE TABLE `JBLOG`.`COMMENT` (
+	`no`       INTEGER      NOT NULL COMMENT '번호', -- 번호
+	`user_no`  INTEGER      NOT NULL COMMENT '사용자 번호', -- 사용자 번호
+	`post_no`  integer      NOT NULL COMMENT '글 번호', -- 글 번호
+	`content`  varchar(500) NULL     COMMENT '내용', -- 내용
+	`reg_date` date         NULL     COMMENT '작성일자' -- 작성일자
+)
+COMMENT '댓글';
+
+-- 댓글
+ALTER TABLE `JBLOG`.`COMMENT`
+	ADD CONSTRAINT `PK_COMMENT` -- 댓글 기본키
+		PRIMARY KEY (
+			`no` -- 번호
+		);
+
+ALTER TABLE `JBLOG`.`COMMENT`
+	MODIFY COLUMN `no` INTEGER NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+-- 카테고리
+ALTER TABLE `JBLOG`.`CATEGORY`
+	ADD CONSTRAINT `FK_BLOG_TO_CATEGORY` -- 블로그 -> 카테고리
+		FOREIGN KEY (
+			`blog_no` -- 블로그 번호
+		)
+		REFERENCES `JBLOG`.`BLOG` ( -- 블로그
+			`no` -- 번호
+		);
+
+-- 글
+ALTER TABLE `JBLOG`.`POST`
+	ADD CONSTRAINT `FK_CATEGORY_TO_POST` -- 카테고리 -> 글
+		FOREIGN KEY (
+			`category_no` -- 카테고리 번호
+		)
+		REFERENCES `JBLOG`.`CATEGORY` ( -- 카테고리
+			`no` -- 번호
+		);
+
+-- 글
+ALTER TABLE `JBLOG`.`POST`
+	ADD CONSTRAINT `FK_BLOG_TO_POST` -- 블로그 -> 글
+		FOREIGN KEY (
+			`blog_no` -- 블로그 번호
+		)
+		REFERENCES `JBLOG`.`BLOG` ( -- 블로그
+			`no` -- 번호
+		);
+
+-- 블로그
+ALTER TABLE `JBLOG`.`BLOG`
+	ADD CONSTRAINT `FK_USER_TO_BLOG` -- 사용자 -> 블로그
+		FOREIGN KEY (
+			`manager_no` -- 관리자 번호
+		)
+		REFERENCES `JBLOG`.`USER` ( -- 사용자
+			`no` -- 번호
+		);
+
+-- 댓글
+ALTER TABLE `JBLOG`.`COMMENT`
+	ADD CONSTRAINT `FK_USER_TO_COMMENT` -- 사용자 -> 댓글
+		FOREIGN KEY (
+			`user_no` -- 사용자 번호
+		)
+		REFERENCES `JBLOG`.`USER` ( -- 사용자
+			`no` -- 번호
+		);
+
+-- 댓글
+ALTER TABLE `JBLOG`.`COMMENT`
+	ADD CONSTRAINT `FK_POST_TO_COMMENT` -- 글 -> 댓글
+		FOREIGN KEY (
+			`post_no` -- 글 번호
+		)
+		REFERENCES `JBLOG`.`POST` ( -- 글
+			`no` -- 번호
+		);
