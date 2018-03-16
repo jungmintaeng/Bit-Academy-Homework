@@ -17,6 +17,7 @@ public class LogoutAction implements Action{
 		HttpSession session = request.getSession();
 		if(session != null && session.getAttribute("authUser") != null) {
 			session.removeAttribute("authUser");
+			session.invalidate();
 		}
 		WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
 	}

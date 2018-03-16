@@ -27,7 +27,6 @@ public class DeleteAction implements Action{
 		GuestBookDao dao = new GuestBookDao();
 		GuestBookVo vo = dao.getRowByNo(deleteNo);
 		if(password == null || !password.equals(vo.getPassword())){
-			response.setCharacterEncoding("euc-kr");
 			WebUtil.alert(request, response, "비밀번호가 일치하지 않습니다.", "/mysite/guestbook?a=list");
 			return;
 		}else{

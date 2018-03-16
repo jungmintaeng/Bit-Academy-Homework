@@ -21,7 +21,7 @@ public class WebUtil {
 	}
 	
 	public static void alert(HttpServletRequest request, HttpServletResponse response, String msg, String redirectURL) throws IOException {
-		response.setCharacterEncoding("euc-kr");
+		response.setContentType( "text/html; charset=utf-8" );
 		response.getWriter().print(
 				"<script type='text/javascript'>" + 
 				"		alert('" + msg +  "');" + 
@@ -32,4 +32,16 @@ public class WebUtil {
 	public static String checkParameter(String target, String defaultValue) {
 		return target == null ? defaultValue : target;
 	}
+	
+	public static Long checkParameter(String target, Long defaultValue) {
+		if(target == null || !isNumeric(target)) {
+			return defaultValue;
+		}
+		
+		return Long.parseLong(target);
+	}
+	
+	public static boolean isNumeric(String s) {  
+	    return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
+	}  
 }

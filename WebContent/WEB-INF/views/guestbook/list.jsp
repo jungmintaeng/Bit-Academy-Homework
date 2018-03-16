@@ -13,8 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>방명록</title>
-<link href="/mysite/assets/css/main.css" rel="stylesheet"
-	type="text/css">
+<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <style>
 table {
 	border: 1px solid black;

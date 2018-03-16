@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cafe24.mvc.action.Action;
-import com.cafe24.mysite.action.user.UserActionFactory;
+import com.cafe24.mysite.action.board.BoardActionFactory;
 
-
-@WebServlet("/user")
-public class UserServlet extends HttpServlet {
+@WebServlet("/board")
+public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UserServlet() {
+    public BoardServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String actionName = request.getParameter("a");
-		Action action = new UserActionFactory().getAction(actionName);
+		Action action = new BoardActionFactory().getAction(actionName);
 		action.execute(request, response);
 	}
 

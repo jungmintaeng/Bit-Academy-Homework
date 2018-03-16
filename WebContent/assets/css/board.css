@@ -55,11 +55,12 @@ input#kwd	{
 
 .tbl-ex td {
 	border-top:1px dotted #333;
-	border-bottom:1px dotted #333; 
+	border-bottom:1px dotted #333;
+	text-align : left;
 }
 
 .board-form .tbl-ex td {
-	text-align:left
+	text-align:left;
 }
 
 .board-form .tbl-ex td.label {

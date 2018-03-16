@@ -28,7 +28,7 @@ public class GuestBookDao {
 		String name, password, content, reg_date;
 
 		try {
-			String sql = "SELECT NO, NAME, PASSWORD, CONTENT, REG_DATE"
+			String sql = "SELECT NO, NAME, PASSWORD, CONTENT, DATE_FORMAT(REG_DATE, '%Y-%m-%d %H:%m:%s')"
 					+ "		FROM GUESTBOOK"
 					+ "		ORDER BY NO DESC";
 
@@ -80,7 +80,7 @@ public class GuestBookDao {
 		String name, password, content, reg_date;
 
 		try {
-			String sql = "SELECT NO, NAME, PASSWORD, CONTENT, REG_DATE"
+			String sql = "SELECT NO, NAME, PASSWORD, CONTENT, DATE_FORMAT(REG_DATE, '%Y-%m-%d %H:%m:%s')"
 					+ "		FROM GUESTBOOK"
 					+ "		ORDER BY NO DESC";
 
