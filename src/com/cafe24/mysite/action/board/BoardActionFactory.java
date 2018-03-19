@@ -25,6 +25,10 @@ public class BoardActionFactory extends AbstractActionFactory {
 			action = new ReplyAction();
 		} else if ("replyform".equals(actionName)) {
 			action = new ReplyFormAction();
+		}  else if ("comment_add".equals(actionName)) {
+			action = new CommentAddAction();
+		}  else if ("comment_delete".equals(actionName)) {
+			action = new CommentDeleteAction();
 		} else {
 			action = new ListAction();
 		}

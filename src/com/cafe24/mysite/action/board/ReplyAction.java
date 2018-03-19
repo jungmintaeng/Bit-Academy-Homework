@@ -16,7 +16,7 @@ public class ReplyAction implements Action{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title, content;
-		long target = WebUtil.checkParameter(request.getParameter("target"), 0L);
+		long parent = WebUtil.checkParameter(request.getParameter("parent"), 0L);
 		UserVo authUser = (UserVo) request.getSession().getAttribute("authUser");
 		
 		if(authUser == null) {
@@ -24,13 +24,12 @@ public class ReplyAction implements Action{
 			return;
 		}
 		
-		if(target == 0L) {
+		if(parent == 0L) {
 			WebUtil.alert(request, response, "답글을 작성할 수 없습니다.", "/mysite/board");
 			return;
 		}
 		
 		long writer_no = authUser.getNo();
-		
 		
 		writer_no = authUser.getNo();
 		title = WebUtil.checkParameter(request.getParameter("title"), "");
@@ -47,10 +46,7 @@ public class ReplyAction implements Action{
 		vo.setContent(content);
 		
 		BoardDao dao = new BoardDao();
-		dao.insert(vo);
-		
-		WebUtil.redirect(request, response, "/mysite/board");
-		
+		dao.insertReply(vo, parent);
 		
 		WebUtil.redirect(request, response, "/mysite/board");
 	}

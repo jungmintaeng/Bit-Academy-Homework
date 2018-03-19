@@ -34,14 +34,15 @@
 					</table>
 				</c:if>
 				<form class="board-form" method="post" action="/mysite/board">
-					<input type="hidden" name="a" value="write">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2"><c:if test="${empty target}">
-								글쓰기
+									글쓰기
+									<input type="hidden" name="a" value="write">
 								</c:if> <c:if test="${not empty target}">
-								답글 쓰기
-								<input type="hidden" name="target" value="${target}">
+									<input type="hidden" name="a" value="reply">
+									<input type="hidden" name="parent" value="${target}">
+									답글 쓰기
 								</c:if></th>
 						</tr>
 						<tr>
@@ -54,7 +55,15 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/mysite/board">취소</a> <input type="submit" value="등록">
+						<c:if test="${empty target}">
+							<a href="/mysite/board">취소</a>
+							<input type="submit" value="등록">
+						</c:if>
+						<c:if test="${not empty target}">
+							<a href="/mysite/board?a=view&target=${target}">취소</a>
+							<input type="submit" value="등록">
+						</c:if>
+
 					</div>
 				</form>
 			</div>

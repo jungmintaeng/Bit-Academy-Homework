@@ -43,5 +43,14 @@ public class WebUtil {
 	
 	public static boolean isNumeric(String s) {  
 	    return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
-	}  
+	}
+	
+	public static void selfClose(HttpServletRequest request, HttpServletResponse response, String msg) throws IOException {
+		response.setContentType( "text/html; charset=utf-8" );
+		response.getWriter().print(
+				"<script type='text/javascript'>" + 
+				"		alert('" + msg +  "');" + 
+				"	self.close();" +
+				"</script>");
+	}
 }

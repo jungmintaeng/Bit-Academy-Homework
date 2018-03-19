@@ -110,6 +110,48 @@ public class UserDao {
 		return result;
 	}
 	
+	public boolean isEmailExists(String email) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = WebDBAccess.getInstance().getConnection();
+			String sql = "SELECT EXISTS(" + 
+					"	SELECT NO" + 
+					"	FROM USERS" + 
+					"	WHERE EMAIL=?" + 
+					")";
+			
+			pst = conn.prepareStatement(sql);
+			pst.setString(1,  email);
+			rs = pst.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getBoolean(1);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pst != null && !pst.isClosed())
+					pst.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				if(conn != null && !conn.isClosed())
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * 회원 가입 시 회원 정보를 DB에 넣는 메소드
 	 * @param vo
@@ -123,13 +165,19 @@ public class UserDao {
 		try {
 			conn = WebDBAccess.getInstance().getConnection();
 			String sql = "INSERT INTO USERS(NO, NAME, EMAIL, PASSWORD, GENDER, JOIN_DATE)"
-					+ "	VALUES (NULL, ?,?,PASSWORD(?), ?, NOW())";
+					+ "	  SELECT *"
+					+ "	  	FROM (SELECT NULL, ?,?,PASSWORD(?), ?, NOW()"
+					+ "			) tmp"
+					+ "		WHERE NOT EXISTS("
+					+ "			SELECT EMAIL FROM USERS WHERE EMAIL=?"
+					+ "		) LIMIT 1";
 			
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, vo.getName());
 			pst.setString(2, vo.getEmail());
 			pst.setString(3, vo.getPassword());
 			pst.setString(4, vo.getGender());
+			pst.setString(5, vo.getEmail());
 			
 			result = pst.executeUpdate() > 0;
 		} catch(SQLException e) {

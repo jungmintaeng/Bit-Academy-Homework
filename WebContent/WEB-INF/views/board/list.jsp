@@ -18,8 +18,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="/mysite/board?a=search" method="post">
-					<input type="text" id="kwd" name="kwd" value=""> <input
+				<form id="search_form" action="/mysite/board" method="post">
+					<input type="text" id="kwd" name="kwd" value="${kwd}"> <input
 						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -31,36 +31,53 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>
-					<c:set var="count" value="${fn:length(list)}" />
 					<c:forEach items="${list}" varStatus="status" var="vo">
 						<tr>
-							<td>${count-status.index}</td>
-							<td style="text-align:left; padding-left:'${vo.depth * 20}px'">
+							<td>${pageObj.itemCount - ((pageObj.curPage - 1) * pageObj.items_per_page) - status.index}</td>
+							<td style="text-align:left;padding-left:${vo.depth * 20}px;">
 								<c:if test="${vo.depth > 0}">
 									<img alt="reply" src="/mysite/assets/images/reply.png">
-								</c:if>
-								<a href="/mysite/board?a=view&target=${vo.no}">${fn:replace(vo.title, newLine, "<br/>")}</a>
+								</c:if> <a href="/mysite/board?a=view&target=${vo.no}&kwd=${kwd}">${fn:replace(vo.title, newLine, "<br/>")}</a>
 							</td>
 							<td>${vo.writer_name}</td>
 							<td>${vo.hits}</td>
 							<td>${vo.reg_date}</td>
-							<td>
-								<c:if test="${not empty authUser && authUser.no == vo.writer_no}">
+							<td><c:if
+									test="${not empty authUser && authUser.no == vo.writer_no}">
 									<a href="/mysite/board?a=delete&target=${vo.no}" class="del">삭제</a>
-								</c:if>
-							</td>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li><a href="">2</a></li>
-						<li class="selected">3</li>
-						<li><a href="">4</a></li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<c:if test="${pageObj.left}">
+							<li><a href="/mysite/board?a=list&page=${pageObj.startNo - pageObj.pages_per_context}">◀</a></li>
+						</c:if>
+						<c:if test="${not pageObj.left}">
+							<li>◀</li>
+						</c:if>
+						<c:forEach begin="${pageObj.startNo}" end="${pageObj.endNo}"
+							var="i" step="1">
+							<c:choose>
+								<c:when
+									test="${i==pageObj.curPage && i > 0 && pageObj.totalPage >= i}">
+									<li class="selected">${i}</li>
+								</c:when>
+								<c:when test="${i > 0 && pageObj.totalPage >= i}">
+									<li><a href="/mysite/board?a=list&page=${i}&kwd=${kwd}">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li>${i}</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${pageObj.right}">
+							<li><a href="/mysite/board?a=list&page=${pageObj.startNo + pageObj.pages_per_context}">▶</a></li>
+						</c:if>
+						<c:if test="${not pageObj.right}">
+							<li>▶</li>
+						</c:if>
 					</ul>
 				</div>
 				<div class="bottom">

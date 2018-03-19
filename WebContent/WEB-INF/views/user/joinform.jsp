@@ -22,7 +22,8 @@
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<input type="button" value="id 중복체크">
+					<input type="button" value="id 중복체크" onclick="window.open('/mysite/user?a=checkemail&email=' + document.getElementById('email').value,
+							'중복 확인','width=400,height=120,location=no,status=no,scrollbars=yes');">
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">

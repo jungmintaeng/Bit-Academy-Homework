@@ -19,6 +19,12 @@ public class JoinAction implements Action {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String gender = request.getParameter("gender");
+		String agreeProv = request.getParameter("agreeProv");
+		
+		if(! "y".equals(agreeProv)) {
+			WebUtil.alert(request, response, "서비스 이용에 동의하셔야 합니다.", "/mysite/user?a=joinform");
+			return;
+		}
 		
 		UserVo vo = new UserVo();
 		vo.setName(name);
@@ -29,8 +35,7 @@ public class JoinAction implements Action {
 		if(new UserDao().insert(vo)) {
 			WebUtil.redirect(request, response, "/mysite/user?a=joinsuccess");
 		} else {
-			WebUtil.alert(request, response, "가입이 이루어지지 않았습니다. 입력을 확인하세요", "/mysite/user?a=joinform");
+			WebUtil.alert(request, response, "가입이 이루어지지 않았습니다. 이메일이 중복되었거나 부적절한 입력입니다.", "/mysite/user?a=joinform");
 		}
 	}
-	
 }
