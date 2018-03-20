@@ -10,14 +10,6 @@ ALTER TABLE `COMMENT`
 ALTER TABLE `COMMENT`
 	DROP FOREIGN KEY `FK_USERS_TO_COMMENT`; -- 회원 -> 댓글
 
--- 댓글
-ALTER TABLE `TABLE`
-	DROP FOREIGN KEY `FK_ARTICLE_TO_TABLE`; -- 게시판글 -> 댓글
-
--- 댓글
-ALTER TABLE `TABLE`
-	DROP FOREIGN KEY `FK_USERS_TO_TABLE`; -- 회원 -> 댓글
-
 -- 이메일리스트
 CREATE TABLE `EMAIL_LIST` (
 	`no`         INTEGER      NOT NULL COMMENT '번호', -- 번호
@@ -61,7 +53,7 @@ ALTER TABLE `USERS`
 -- 게시판글
 CREATE TABLE `ARTICLE` (
 	`no`        INTEGER       NOT NULL COMMENT '번호', -- 번호
-	`writer_no` INTEGER       NULL     COMMENT '작성자번호', -- 작성자번호
+	`writer_no` INTEGER       NULL     DEFAULT 0 COMMENT '작성자번호', -- 작성자번호
 	`title`     varchar(100)  NULL     COMMENT '제목', -- 제목
 	`content`   varchar(2000) NULL     COMMENT '내용', -- 내용
 	`hits`      INTEGER       NULL     COMMENT '조회수', -- 조회수
@@ -102,23 +94,6 @@ ALTER TABLE `COMMENT`
 ALTER TABLE `COMMENT`
 	MODIFY COLUMN `no` INTEGER NOT NULL AUTO_INCREMENT COMMENT '번호';
 
--- 댓글
-CREATE TABLE `TABLE` (
-	`COL`  <데이터 타입 없음> NOT NULL COMMENT '번호', -- 번호
-	`no`   INTEGER            NULL     COMMENT '글 번호', -- 글 번호
-	`no2`  INTEGER            NULL     COMMENT '회원 번호', -- 회원 번호
-	`COL2` <데이터 타입 없음> NULL     COMMENT '내용', -- 내용
-	`COL3` <데이터 타입 없음> NULL     COMMENT '작성일' -- 작성일
-)
-COMMENT '댓글';
-
--- 댓글
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `PK_TABLE` -- 댓글 기본키
-		PRIMARY KEY (
-			`COL` -- 번호
-		);
-
 -- 방명록
 CREATE TABLE `GUESTBOOK` (
 	`no`       INTEGER       NOT NULL COMMENT '번호', -- 번호
@@ -147,7 +122,9 @@ ALTER TABLE `ARTICLE`
 		)
 		REFERENCES `USERS` ( -- 회원
 			`no` -- 번호
-		);
+		)
+		ON DELETE SET DEFAULT
+		ON UPDATE SET DEFAULT;
 
 -- 댓글
 ALTER TABLE `COMMENT`
@@ -157,7 +134,9 @@ ALTER TABLE `COMMENT`
 		)
 		REFERENCES `ARTICLE` ( -- 게시판글
 			`no` -- 번호
-		);
+		)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE;
 
 -- 댓글
 ALTER TABLE `COMMENT`
@@ -167,24 +146,6 @@ ALTER TABLE `COMMENT`
 		)
 		REFERENCES `USERS` ( -- 회원
 			`no` -- 번호
-		);
-
--- 댓글
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `FK_ARTICLE_TO_TABLE` -- 게시판글 -> 댓글
-		FOREIGN KEY (
-			`no` -- 글 번호
 		)
-		REFERENCES `ARTICLE` ( -- 게시판글
-			`no` -- 번호
-		);
-
--- 댓글
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `FK_USERS_TO_TABLE` -- 회원 -> 댓글
-		FOREIGN KEY (
-			`no2` -- 회원 번호
-		)
-		REFERENCES `USERS` ( -- 회원
-			`no` -- 번호
-		);
+		ON DELETE SET DEFAULT
+		ON UPDATE SET DEFAULT;
