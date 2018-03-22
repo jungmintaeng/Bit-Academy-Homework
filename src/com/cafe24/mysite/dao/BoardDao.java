@@ -268,7 +268,7 @@ public class BoardDao {
 					"                   									 FROM ( SELECT GROUP_NO" + 
 					"                   												 FROM ARTICLE A" + 
 					"                												    WHERE NO = ?" + 
-					"												                    ) b);";	//parent_no
+					"												                    ) b)";	//parent_no
 			pst = conn.prepareStatement(updateSQL);
 			pst.setLong(1, parent_no);
 			pst.setLong(2, parent_no);

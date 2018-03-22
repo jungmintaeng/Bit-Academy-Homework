@@ -82,10 +82,12 @@ public class GuestBookDao {
 		try {
 			String sql = "SELECT NO, NAME, PASSWORD, CONTENT, DATE_FORMAT(REG_DATE, '%Y-%m-%d %H:%m:%s')"
 					+ "		FROM GUESTBOOK"
-					+ "		ORDER BY NO DESC";
+					+ "		ORDER BY NO DESC"
+					+ "		WHERE NO=?";
 
 			conn = WebDBAccess.getInstance().getConnection();
 			pst = conn.prepareStatement(sql);
+			pst.setLong(1, no);
 			rs = pst.executeQuery();
 			rs.last();
 			long count = rs.getRow();
