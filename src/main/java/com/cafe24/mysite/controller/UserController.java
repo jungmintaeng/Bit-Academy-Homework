@@ -43,6 +43,7 @@ public class UserController {
 	public String login(@ModelAttribute UserVo vo, Model model, HttpSession session) {
 		UserVo authUser = userService.getUser(vo);
 		if(authUser == null) {
+			System.out.println("fail");
 			model.addAttribute("result", "fail");
 			return "user/loginform";
 		}

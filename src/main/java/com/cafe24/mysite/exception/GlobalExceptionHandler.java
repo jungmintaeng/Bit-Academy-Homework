@@ -21,8 +21,9 @@ public class GlobalExceptionHandler {
 		// 1. 로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
+		e.printStackTrace();
 		// 2. 사과
-		request.setAttribute("errors", errors);
+		request.setAttribute("errors", "");
 		
 		request.getRequestDispatcher("/WEB-INF/views/error/error.jsp")
 		.forward(request, response);

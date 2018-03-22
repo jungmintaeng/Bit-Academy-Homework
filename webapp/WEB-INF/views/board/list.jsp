@@ -40,7 +40,7 @@
 									<img alt="reply" src="${pageContext.servletContext.contextPath}/assets/images/reply.png">
 								</c:if> <a href="${pageContext.servletContext.contextPath}/board/view?no=${vo.no}&kwd=${kwd}">${fn:replace(vo.title, newLine, "<br/>")}</a>
 							</td>
-							<td>${vo.writer_name}</td>
+							<td>${empty vo.writer_name? "탈퇴" : vo.writer_name}</td>
 							<td>${vo.hits}</td>
 							<td>${vo.reg_date}</td>
 							<td><c:if
@@ -50,6 +50,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+				${pageObj.totalPage }
 				<div class="pager">
 					<ul>
 						<c:if test="${pageObj.left}">

@@ -1,7 +1,8 @@
 package com.cafe24.mvc.util;
 
-import com.cafe24.mysite.repository.BoardDao;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Page {
 	private final int items_per_page = 10;
 	private final int pages_per_context = 5;
@@ -13,22 +14,25 @@ public class Page {
 	private boolean left;
 	private boolean right;
 
-	public Page(long curPage, String kwd) {
-		this.curPage = curPage;
+	public void setPageInfo(Long curPage, String kwd, Long itemCount) {
+		if(!isPageValid(curPage)) {
+			this.curPage = 1L;
+		} else {
+			this.curPage = curPage;
+		}
+		this.itemCount = itemCount;
 		calculateMembers(kwd);
 	}
 
 	public void calculateMembers(String kwd) {
-		itemCount = new BoardDao().getCount(kwd);
-		totalPage = itemCount % items_per_page == 0 ? itemCount / items_per_page
-																					  : itemCount / items_per_page + 1;
+		totalPage = itemCount % items_per_page == 0 ? itemCount / items_per_page : itemCount / items_per_page + 1;
 		startNo = pages_per_context * (int) ((curPage-1) / pages_per_context) + 1;
 		endNo = pages_per_context * (int) ((curPage-1) / pages_per_context) + pages_per_context;
 		left = startNo > pages_per_context;
 		right = endNo < totalPage;
 	}
 
-	public boolean isCurPageValid() {
+	public boolean isPageValid(Long page) {
 		return curPage > 0 && curPage <= totalPage;
 	}
 

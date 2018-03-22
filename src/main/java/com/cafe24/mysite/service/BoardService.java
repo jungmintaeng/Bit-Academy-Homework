@@ -36,11 +36,11 @@ public class BoardService {
 		return false;
 	}
 	
-	public boolean modifyArticle(BoardVo vo) {
+	public int modifyArticle(BoardVo vo) {
 		return boardDao.update(vo);
 	}
 	
-	public boolean replyArticle(BoardVo vo, Long parent_no) {
+	public int replyArticle(BoardVo vo, Long parent_no) {
 		return boardDao.insertReply(vo, parent_no);
 	}
 	
@@ -48,11 +48,11 @@ public class BoardService {
 		return commentDao.getList(article_no);
 	}
 	
-	public boolean addComment(CommentVo vo) {
+	public int addComment(CommentVo vo) {
 		return commentDao.insert(vo);
 	}
 	
-	public boolean deleteComment(Long no) {
+	public int deleteComment(Long no) {
 		return commentDao.delete(no);
 	}
 	
@@ -61,10 +61,8 @@ public class BoardService {
 	}
 	
 	public Page generatePageObject(Long pageNo, String kwd) {
-		Page page = new Page(pageNo, kwd);
-		if(page.isCurPageValid()) {
-			return page;
-		}
-		return new Page(1, kwd);
+		Page page = new Page();
+		page.setPageInfo(pageNo, kwd, boardDao.getCount(kwd));
+		return page;
 	}
 }
