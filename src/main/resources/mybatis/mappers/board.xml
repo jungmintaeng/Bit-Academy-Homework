@@ -11,7 +11,6 @@
 		order by group_no desc, order_no asc
 		limit #{limit1},#{limit2}
 	]]>
-
 	</select>
 	
 	<select id="getCount" parameterType="String" resultType="Long">

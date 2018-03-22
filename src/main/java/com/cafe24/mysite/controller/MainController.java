@@ -8,8 +8,6 @@ public class MainController {
 	
 	@RequestMapping(value= {"/main", "/"})
 	public String main() {
-		String sql = "DELETE FROM COMMENT WHERE NO=?";
-		System.out.println(sql.toLowerCase());
 		return "main/index";
 	}
 }
