@@ -26,4 +26,8 @@ public class UserService {
 	public boolean updateUserInfo(UserVo vo) {
 		return userDao.update(vo);
 	}
+	
+	public boolean isEmailExists(String email) {
+		return userDao.isEmailExists(email);
+	}
 }

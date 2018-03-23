@@ -23,7 +23,7 @@
 		<!-- CDATA 쓰는 이유 : lt, gt를 태그로 인식할까봐 -->
 	</select>
 	
-	<select id="isEmailExists" parameterType="String" resultType="uservo">
+	<select id="isEmailExists" parameterType="String" resultType="Boolean">
 	<![CDATA[
 		select exists(
 				select no

@@ -9,22 +9,30 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.cafe24.mysite.dto.JSONResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	
 	@ExceptionHandler(Exception.class)
 	public void handlerException(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			Exception e) throws Exception{
-		
 		// 1. 로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		e.printStackTrace();
+		String accept = request.getHeader("accept");
+		if(accept.matches(".*application/json.*")) {
+			JSONResult jsonResult = JSONResult.fail(e.getMessage());
+			String json = new ObjectMapper().writeValueAsString(jsonResult);
+			response.setContentType("application/json; charset=utf-8");
+			response.getWriter().print(json);
+			return;
+		}
 		// 2. 사과
-		request.setAttribute("errors", "");
-		
+		request.setAttribute("errors", errors);
 		request.getRequestDispatcher("/WEB-INF/views/error/error.jsp")
 		.forward(request, response);
 	}
