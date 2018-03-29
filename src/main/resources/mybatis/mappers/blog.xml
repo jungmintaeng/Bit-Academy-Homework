@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog"><!-- namespace를 쓰는 이유는 각 Dao마다 getList와 같이 겹치는 행동이 
+		있기 때문이다. -->
+		
+		<!-- get -->
+		<select id="getBlogByUserID" parameterType="String" resultType="blogvo">
+			<![CDATA[
+				select b.no as no, 
+				b.user_no as userNo, 
+				b.title as title, 
+				b.logo_no as logoNo, 
+				l.upload_name as uploadName, 
+				l.save_name as saveName, 
+				date_format(l.reg_date, '%Y-%m-%d') as regDate,
+				u.id as userID
+				from blog b
+				join logo l on b.logo_no=l.no
+				join user u on b.user_no=u.no
+				where u.id = #{userID}
+				order by reg_date desc
+			]]>
+		</select>
+		
+		<!-- insert -->
+		<insert id="insert" parameterType="blogvo">
+			<![CDATA[
+				insert into blog(no, user_no, title, logo_no)
+				values (null, #{userNo}, '새 블로그', null)
+			]]>
+			<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+			</selectKey>
+		</insert>
+		
+		<!-- update -->
+		<update id="update" parameterType="blogvo">
+			<![CDATA[
+				update blog
+				set title=#{title}
+				where no = #{no}
+			]]>
+		</update>
+		
+		<!-- insert -->
+		<insert id="insertDefaultLogo" parameterType="blogvo">
+			<![CDATA[
+				insert into logo (no, upload_name, save_name, reg_date)
+				values(null, null, null, now())
+			]]>
+			<selectKey keyProperty="logoNo" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+			</selectKey>
+		</insert>
+		
+		<!-- insert -->
+		<update id="updateDefaultLogo" parameterType="blogvo">
+			<![CDATA[
+				update blog
+				set logo_no=#{logoNo}
+				where no=#{no}
+			]]>
+		</update>
+		
+		<!-- updateLogo -->
+		<update id="uploadLogo" parameterType="blogvo">
+			<![CDATA[
+				update logo
+				set upload_name=#{uploadName},
+					 save_name=#{saveName},
+					 reg_date=now()
+				where no=#{logoNo}
+			]]>
+		</update>
+</mapper>

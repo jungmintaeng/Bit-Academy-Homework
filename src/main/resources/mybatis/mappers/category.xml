@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category"><!-- namespace를 쓰는 이유는 각 Dao마다 getList와 같이 겹치는 행동이 
+		있기 때문이다. -->
+		
+		<select id="getList" parameterType="Long" resultType="categoryvo">
+			<![CDATA[
+				select c.no as no, 
+				c.blog_no as blogNo, 
+				c.name as name, 
+				c.reg_date as regDate, 
+				c.description as description,
+				(
+					select count(post.no)
+					from post
+					where post.category_no=c.no
+				) as postCount
+				from category c
+				where blog_no=#{no}
+				order by reg_date desc
+			]]>
+		</select>
+		
+		<select id="nullCount" parameterType="Long" resultType="Long">
+			<![CDATA[
+				select count(no)
+				from post
+				where blog_no=#{no}
+				and category_no is null
+			]]>
+		</select>
+
+		<insert id="insert" parameterType="categoryvo">
+			<![CDATA[
+				insert into category(no, blog_no, name, description ,reg_date)
+				values (null, #{blogNo}, #{name}, #{description} , now())
+			]]>
+		</insert>
+		
+		<delete id="delete" parameterType="Long">
+			<![CDATA[
+				delete from category
+				where no = #{no}
+			]]>		
+		</delete>
+</mapper>

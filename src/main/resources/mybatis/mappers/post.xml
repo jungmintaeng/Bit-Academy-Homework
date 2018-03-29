@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post"><!-- namespace를 쓰는 이유는 각 Dao마다 getList와 같이 겹치는 행동이 
+		있기 때문이다. -->
+		
+		<select id="getList" parameterType="Long" resultType="postvo">
+			<![CDATA[
+				select no, 
+				category_no as categoryNo, 
+				blog_no as blogNo, 
+				title, 
+				content, 
+				date_format(reg_date, '%Y-%m-%d') as regDate
+				from post
+				where blog_no=#{no}
+				order by reg_date desc;
+			]]>
+		</select>
+		
+		<select id="getListOfCategory" parameterType="map" resultType="postvo">
+			<![CDATA[
+				select no, 
+				category_no as categoryNo, 
+				blog_no as blogNo, 
+				title, 
+				content, 
+				date_format(reg_date, '%Y-%m-%d') as regDate
+				from post
+				where blog_no=#{blogNo}
+			]]>
+			<if test="categoryNo == 0">
+			<![CDATA[
+					and category_no is null
+			]]>
+  			</if>
+  			
+  			<if test="categoryNo != 0">
+			<![CDATA[
+					and category_no=#{categoryNo}
+			]]>
+  			</if>
+			<![CDATA[
+				order by reg_date desc;
+			]]>
+		</select>
+		
+		<select id="getPostByNo" parameterType="Long" resultType="postvo">
+			<![CDATA[
+				select no, category_no, blog_no, title, content, date_format(reg_date, '%Y-%m-%d') as reg_date
+				from post
+				where no=#{no}
+				order by reg_date desc;
+			]]>
+		</select>
+
+		<insert id="insert" parameterType="postvo">
+			<![CDATA[
+				insert into post(no, category_no, blog_no, title, content, reg_date)
+				values(
+					null,
+			]]>
+			<if test="categoryNo == 0">
+			<![CDATA[
+					null,
+			]]>
+  			</if>
+  			
+  			<if test="categoryNo != 0">
+			<![CDATA[
+					#{categoryNo},
+			]]>
+  			</if>
+  			<![CDATA[
+					#{blogNo},
+					#{title},
+					#{content},
+					now()
+				)
+			]]>
+		</insert>
+</mapper>

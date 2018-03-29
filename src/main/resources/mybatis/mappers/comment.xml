@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment"><!-- namespace를 쓰는 이유는 각 Dao마다 getList와 같이 겹치는 행동이 
+		있기 때문이다. -->
+
+		<insert id="insert" parameterType="commentvo">
+			<![CDATA[
+				
+			]]>
+		</insert>
+</mapper>
