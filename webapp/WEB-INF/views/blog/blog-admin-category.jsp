@@ -22,7 +22,6 @@
 			dataType : "json",
 			data : "",
 			success : function(response) {
-				console.log(response.data);
 				getCategories();
 			},
 			error : function(xhr, status, e) {

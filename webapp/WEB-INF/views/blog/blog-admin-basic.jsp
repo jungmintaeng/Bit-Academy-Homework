@@ -11,6 +11,25 @@
 <Link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/jblog.css">
 </head>
+<script
+	src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.readAsDataURL(input.files[0]);
+	    reader.onload = function(e) {
+		      $('#logoImg').attr('src', e.target.result);
+		    }
+	  }
+}
+$(document).ready(function(){
+	$('#logoInput').change(function() {
+		  readURL(this);
+	});
+});
+</script>
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
@@ -21,10 +40,9 @@
 				</c:import>
 				<form
 					action="${pageContext.servletContext.contextPath }/${authUser.name}/admin/basic"
-					method="post"
-					enctype="multipart/form-data">
-					<input type="hidden" name="no" value="${blog.no }">
-					<input type="hidden" name="logoNo" value="${blog.logoNo }">
+					method="post" enctype="multipart/form-data">
+					<input type="hidden" name="no" value="${blog.no }"> <input
+						type="hidden" name="logoNo" value="${blog.logoNo }">
 					<table class="admin-config">
 						<tr>
 							<td class="t">블로그 제목</td>
@@ -34,17 +52,17 @@
 						<tr>
 							<td class="t">로고이미지</td>
 							<c:if test="${empty blog.saveName }">
-								<td><img
+								<td><img id="logoImg"
 									src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>
 							</c:if>
 							<c:if test="${not empty blog.saveName }">
-								<td><img
+								<td><img id="logoImg"
 									src="${pageContext.request.contextPath }${logoURL}"></td>
 							</c:if>
 						</tr>
 						<tr>
 							<td class="t">&nbsp;</td>
-							<td><input type="file" name="logo-file"></td>
+							<td><input id="logoInput" type="file" name="logo-file"></td>
 						</tr>
 						<tr>
 							<td class="t">&nbsp;</td>
