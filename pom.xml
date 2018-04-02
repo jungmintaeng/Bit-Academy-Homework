@@ -5,57 +5,60 @@
 	<artifactId>mysite3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-
-	<properties>
+	
+	<properties>	<!-- 버전 같은 변할 수 있는 요소들을 저장해놓는 곳 -->
+	
 		<org.springframework-version>4.2.1.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
 		<logback.version>1.1.1</logback.version>
+		
 	</properties>
-
+	
 	<dependencies>
-		<!-- 라이브러리s -->
-		<!-- Mysql JDBC Driver -->
+	
+		<!-- spring core -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
-		</dependency>
-		<!-- jstl -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<!-- spring core -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- spring web library -->
 		<dependency>
-			<!-- spring web library -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		
+		<!-- spring mvc -->
 		<dependency>
-			<!-- spring mvc -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- spring jdbc -->
+		
+		
+		<!-- Spring JDBC -> 기본 로드 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- Common DBCP -->
+
+		<!-- Mysql JDBC Driver -> DBMS 종류에 따라서 달라질 수 있음 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.38</version>
+		</dependency>
+		
+		<!-- Common DBCP -> DataBase Connection Pool (효율적인 Connection 객체 관리) -->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
+		
 		<!-- MyBatis -->
 		<dependency><!-- 코어 -->
 			<groupId>org.mybatis</groupId>
@@ -67,26 +70,58 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		
+		<!-- jstl -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+		
 		<!-- Logback -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${jcloverslf4j.version}</version>  <!-- bridge interface -->
+			<version>${jcloverslf4j.version}</version>
 		</dependency>
+		
+		<!-- bridge interface -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-
+		
+		<!-- validation -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
+		
 	</dependencies>
-
+	
+	
 	<build>
 		<plugins>
 			<plugin>

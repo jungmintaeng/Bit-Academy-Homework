@@ -11,7 +11,7 @@
 			<h1><a href="${pageContext.servletContext.contextPath}/main">MySite</a></h1>
 			<ul>
 				<c:if test="${empty authUser}">
-					<li><a href="${pageContext.servletContext.contextPath}/user/login">로그인</a></li>
+					<li><a href="${pageContext.servletContext.contextPath}/user/auth">로그인</a></li>
 				</c:if>
 				<c:if test="${not empty authUser}">
 					<li><a href="${pageContext.servletContext.contextPath}/user/logout">로그아웃</a></li>

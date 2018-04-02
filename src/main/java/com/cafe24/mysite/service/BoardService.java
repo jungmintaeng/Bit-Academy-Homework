@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.mvc.util.Page;
 import com.cafe24.mysite.repository.BoardDao;
@@ -60,6 +61,7 @@ public class BoardService {
 		boardDao.updateHits(no);
 	}
 	
+	@Transactional
 	public Page generatePageObject(Long pageNo, String kwd) {
 		Page page = new Page();
 		page.setPageInfo(pageNo, kwd, boardDao.getCount(kwd));
