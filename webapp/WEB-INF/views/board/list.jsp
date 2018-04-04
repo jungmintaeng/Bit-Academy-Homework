@@ -50,7 +50,6 @@
 						</tr>
 					</c:forEach>
 				</table>
-				${pageObj.totalPage }
 				<div class="pager">
 					<ul>
 						<c:if test="${pageObj.left}">

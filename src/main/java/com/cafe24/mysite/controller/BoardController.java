@@ -24,6 +24,8 @@ public class BoardController {
 			@RequestParam(value="kwd", required=true, defaultValue="") String kwd,
 			Model model
 			) {
+		System.out.println("page : " + pageNo + " kwd : " + kwd);
+		System.out.println(boardService.generatePageObject(pageNo, kwd));
 		model.addAttribute("list", boardService.getAllArticle(pageNo, kwd));
 		model.addAttribute("pageObj", boardService.generatePageObject(pageNo, kwd));
 		return "board/list";

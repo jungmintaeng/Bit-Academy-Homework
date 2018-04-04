@@ -1,0 +1,44 @@
+body{ font-family : '맑은 고딕'; }
+div#guestbook-ajax-title				{ margin-bottom : 4px; }
+div#guestbook-ajax-title *			{ display:inline-block; height : 40px; line-height:40px; vertical-align:middle; }
+div#guestbook-ajax-title h1			{ font-size:2em; padding-left : 10px; color:#666; }
+
+/* add form */
+form#add-form *									{ margin:5px 0; padding:0; }
+form#add-form input[type='text'],
+form#add-form input[type='password']	{ width:500px; padding: 3px; }
+form#add-form textarea 				  		{ width:498px; height:100px; padding : 5px; }
+form#add-form input[type='submit'] 		{ width:510px; background-color:#ffffff; padding: 3px 0; 
+															  border : 2px outset #ddd; margin: 2px 0; }
+
+/* list */
+ul#list-guestbook				{ border-top : 1px solid #aaa; width:510px; }
+ul#list-guestbook li				{ position : relative; margin : 20px 0; }
+ul#list-guestbook li p 			{ background-color:#fafafa; margin : 4px 55px; padding : 10px 10px; border: 1px solid #ddd;
+										  border-radius:3px; width:418px; }
+ul#list-guestbook li strong 	{ color : #aaa; }
+ul#list-guestbook li > img 	{ margin:10px 10px; width:35px; height:35px; }
+ul#list-guestbook li a 			{ font-size:0px; position:absolute; left:28px; top:33px; cursor:pointer; }
+
+/* dialog */
+div#dialog-delete-form input[type='password'] {
+	width:55%;
+	margin : 20px auto;
+	font-size:1.6em;
+}
+
+div#dialog-delete-form input[type='submit'] {
+	margin : 0px auto;
+	width:54%;
+	background-color:#ffffff;
+	border:2px outset #ddd;
+	padding:3px 0;
+}
+
+div#dialog-delete-form p.validateTips.error {
+	color:red;
+}
+
+/* float setting */
+.left	 { float:left; }
+.right  { float:right; }

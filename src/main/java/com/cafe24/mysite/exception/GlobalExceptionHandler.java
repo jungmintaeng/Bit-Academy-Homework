@@ -6,8 +6,6 @@ import java.io.StringWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	private static Log LOG = LogFactory.getLog(GlobalExceptionHandler.class);
+	//private static Log LOG = LogFactory.getLog(GlobalExceptionHandler.class);
 	
 	@ExceptionHandler(Exception.class)
 	public void handlerException(
@@ -26,7 +24,7 @@ public class GlobalExceptionHandler {
 		// 1. 로깅
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
-		LOG.error(errors.toString());
+		e.printStackTrace();
 		String accept = request.getHeader("accept");
 		if(accept.matches(".*application/json.*")) {
 			JSONResult jsonResult = JSONResult.fail(e.getMessage());

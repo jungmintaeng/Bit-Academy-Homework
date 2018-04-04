@@ -15,17 +15,17 @@ public class Page {
 	private boolean right;
 
 	public void setPageInfo(Long curPage, String kwd, Long itemCount) {
+		this.itemCount = itemCount;
+		this.totalPage = itemCount % items_per_page == 0 ? itemCount / items_per_page : itemCount / items_per_page + 1;
 		if(!isPageValid(curPage)) {
 			this.curPage = 1L;
 		} else {
 			this.curPage = curPage;
 		}
-		this.itemCount = itemCount;
 		calculateMembers(kwd);
 	}
 
 	public void calculateMembers(String kwd) {
-		totalPage = itemCount % items_per_page == 0 ? itemCount / items_per_page : itemCount / items_per_page + 1;
 		startNo = pages_per_context * (int) ((curPage-1) / pages_per_context) + 1;
 		endNo = pages_per_context * (int) ((curPage-1) / pages_per_context) + pages_per_context;
 		left = startNo > pages_per_context;
@@ -33,7 +33,7 @@ public class Page {
 	}
 
 	public boolean isPageValid(Long page) {
-		return curPage > 0 && curPage <= totalPage;
+		return page > 0 && page <= totalPage;
 	}
 
 	public long getItemCount() {
@@ -99,4 +99,13 @@ public class Page {
 	public int getPages_per_context() {
 		return pages_per_context;
 	}
+
+	@Override
+	public String toString() {
+		return "Page [items_per_page=" + items_per_page + ", pages_per_context=" + pages_per_context + ", itemCount="
+				+ itemCount + ", totalPage=" + totalPage + ", curPage=" + curPage + ", startNo=" + startNo + ", endNo="
+				+ endNo + ", left=" + left + ", right=" + right + "]";
+	}
+	
+	
 }

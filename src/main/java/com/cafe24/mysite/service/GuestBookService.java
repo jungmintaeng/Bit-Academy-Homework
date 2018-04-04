@@ -21,7 +21,17 @@ public class GuestBookService {
 		return guestBookDao.delete(vo);
 	}
 	
+	public boolean deleteGuestBookByNo(Long no) {
+		GuestBookVo vo = new GuestBookVo();
+		vo.setNo(no);
+		return guestBookDao.delete(vo);
+	}
+	
 	public boolean addGuestBook(GuestBookVo vo) {
 		return guestBookDao.insert(vo);
+	}
+	
+	public List<GuestBookVo> getLimitedGuestBookList(Long page){
+		return guestBookDao.getLimitedList(page);
 	}
 }

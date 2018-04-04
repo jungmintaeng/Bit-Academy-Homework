@@ -16,6 +16,11 @@ public class GuestBookDao {
 	public List<GuestBookVo> getList(){
 		return sqlSession.selectList("guestbook.getList");
 	}
+	
+	public List<GuestBookVo> getLimitedList(Long page){
+		page = (page - 1) * 10;
+		return sqlSession.selectList("guestbook.getLimitedList", page);
+	}
 
 	public boolean insert(GuestBookVo vo) {
 		return sqlSession.insert("guestbook.insert", vo) > 0;
