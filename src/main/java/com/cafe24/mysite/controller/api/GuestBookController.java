@@ -24,12 +24,12 @@ public class GuestBookController {
 		return JSONResult.success(guestBookService.getAllGuestBooks());
 	}
 	
-	@RequestMapping("/list/{page}")
+	@RequestMapping("/list/{lastNo}")
 	@ResponseBody
 	public JSONResult list(
-				@PathVariable("page") Long page
+				@PathVariable("lastNo") Long lastNo
 			) {
-		return JSONResult.success(guestBookService.getLimitedGuestBookList(page));
+		return JSONResult.success(guestBookService.getLimitedGuestBookList(lastNo));
 	}
 	
 	@RequestMapping("/add")
@@ -37,7 +37,7 @@ public class GuestBookController {
 	public JSONResult add(
 				@ModelAttribute GuestBookVo vo
 			) {
-		return JSONResult.success(guestBookService.addGuestBook(vo));
+		return JSONResult.success(guestBookService.addAndReturnGuestBook(vo));
 	}
 	
 	@RequestMapping("/delete")
@@ -45,6 +45,6 @@ public class GuestBookController {
 	public JSONResult delete(
 				@ModelAttribute GuestBookVo vo
 			) {
-		return JSONResult.success(guestBookService.deleleteGuestBook(vo));
+		return JSONResult.success(guestBookService.deleleteGuestBook(vo) ? vo.getNo() : -1);
 	}
 }

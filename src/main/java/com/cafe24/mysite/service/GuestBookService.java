@@ -31,7 +31,15 @@ public class GuestBookService {
 		return guestBookDao.insert(vo);
 	}
 	
-	public List<GuestBookVo> getLimitedGuestBookList(Long page){
-		return guestBookDao.getLimitedList(page);
+	public GuestBookVo addAndReturnGuestBook(GuestBookVo vo) {
+		if(addGuestBook(vo)) {
+			return guestBookDao.getByNo(vo);
+		}
+		
+		return null;
+	}
+	
+	public List<GuestBookVo> getLimitedGuestBookList(Long lastNo){
+		return guestBookDao.getLimitedList(lastNo);
 	}
 }

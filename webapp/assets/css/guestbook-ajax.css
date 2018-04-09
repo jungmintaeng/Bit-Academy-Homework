@@ -3,13 +3,13 @@ div#guestbook-ajax-title				{ margin-bottom : 4px; }
 div#guestbook-ajax-title *			{ display:inline-block; height : 40px; line-height:40px; vertical-align:middle; }
 div#guestbook-ajax-title h1			{ font-size:2em; padding-left : 10px; color:#666; }
 
-/* add form */
-form#add-form *									{ margin:5px 0; padding:0; }
+/* add form , fetch btn*/
+form#add-form *											{ margin:5px 0; padding:0; }
 form#add-form input[type='text'],
-form#add-form input[type='password']	{ width:500px; padding: 3px; }
-form#add-form textarea 				  		{ width:498px; height:100px; padding : 5px; }
-form#add-form input[type='submit'] 		{ width:510px; background-color:#ffffff; padding: 3px 0; 
-															  border : 2px outset #ddd; margin: 2px 0; }
+form#add-form input[type='password']			{ width:500px; padding: 3px; }
+form#add-form textarea 				  				{ width:498px; height:100px; padding : 5px; }
+form#add-form input[type='submit'] ,
+#btn_fetch														{ width:510px; ; padding: 3px 0; margin: 2px 0;}
 
 /* list */
 ul#list-guestbook				{ border-top : 1px solid #aaa; width:510px; }
@@ -30,14 +30,16 @@ div#dialog-delete-form input[type='password'] {
 div#dialog-delete-form input[type='submit'] {
 	margin : 0px auto;
 	width:54%;
-	background-color:#ffffff;
-	border:2px outset #ddd;
 	padding:3px 0;
 }
 
 div#dialog-delete-form p.validateTips.error {
 	color:red;
 }
+
+/* btn setting */
+.btn-hover						{ background-color:#ffffff; color : black; border:2px outset #ddd; }
+.btn-hover:hover			{ background-color : black; color:white; cursor: pointer; }
 
 /* float setting */
 .left	 { float:left; }

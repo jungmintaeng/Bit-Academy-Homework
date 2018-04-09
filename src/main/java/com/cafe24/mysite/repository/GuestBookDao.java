@@ -17,9 +17,12 @@ public class GuestBookDao {
 		return sqlSession.selectList("guestbook.getList");
 	}
 	
-	public List<GuestBookVo> getLimitedList(Long page){
-		page = (page - 1) * 10;
-		return sqlSession.selectList("guestbook.getLimitedList", page);
+	public List<GuestBookVo> getLimitedList(Long lastNo){
+		return sqlSession.selectList("guestbook.getLimitedList", lastNo);
+	}
+	
+	public GuestBookVo getByNo(GuestBookVo vo) {
+		return sqlSession.selectOne("guestbook.getByNo", vo);
 	}
 
 	public boolean insert(GuestBookVo vo) {
