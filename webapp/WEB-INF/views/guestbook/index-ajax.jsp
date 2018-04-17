@@ -11,11 +11,28 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/guestbook-ajax.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <script type="text/javascript">
+/*
+ * jQuery Plugin 만드는 방법
+ * $().함수명 이런식으로 쓸 수 있다. 여기서는 $(~).hello();
+ */
+(function($){
+	$.fn.hello = function(){
+		var $element = $(this);
+		//console.log($element.attr("id") + ": hello~");
+	}
+})(jQuery);
+
 var lastNo = 0;
 var isEnd = false;
+var inProgress = false;
+var cPath = '';
+var ejsListItem = new EJS({
+	url : "${pageContext.request.contextPath }/assets/js/ejs/template/listitem.ejs"
+});
 var messageBox = function(title, message, closeFunc){
 	$("#dialog-message").attr("title", title);
 	$("#dialog-message p").text(message);
@@ -50,9 +67,11 @@ var getList = function(){
 				$list.append(render(guest_book_vo));
 			});
 			lastNo = $("#list-guestbook li:last-child > a").attr("data-no");
+			inProgress = false;
 		},
 		error : function(xhr, status, e) {
 			console.error(e);
+			inProgress = false;
 		}
 	});
 }
@@ -119,18 +138,11 @@ var doDelete = function(event){
 	});
 }
 var render = function(vo){
-	return (
-	"<li class='deletable'>"+
-	"<img class='left' src='${pageContext.request.contextPath }/assets/images/user.png' alt='프로필 사진'>" +
-	"<strong>" + vo.name + "</strong>" +
-	"<p>" +
-	vo.content +
-	"</p>" +
-	"<strong>" + vo.reg_date + "</strong>" +
-	"<a data-no='" + vo.no + "'><img src='${pageContext.request.contextPath }/assets/images/delete.png' alt='삭제'>삭제</a>" +
-	"</li>");
+	vo.userURL = "${pageContext.servletContext.contextPath}/assets/images/user.png";
+	vo.deleteURL = "${pageContext.servletContext.contextPath}/assets/images/delete.png";
+	return (ejsListItem.render(vo));
 }
-$(document).ready(function(){
+$(document).ready(function($){
 	$('#dialog-delete-form').hide();
 	$(document).on('click', 'ul#list-guestbook li a', function(){
 		$('p.validateTips.error').hide();
@@ -140,7 +152,24 @@ $(document).ready(function(){
 	$("#btn_fetch").click(getList);
 	$("#add-form").submit(add);
 	$("#delete-form").submit(doDelete);
+	$(window).scroll(function(){
+		if(inProgress){
+			console.log("escape");
+			return;
+		}
+		
+		var $window = $(this);
+		var scrollTop = $window.scrollTop();
+		var windowHeight = $window.height();
+		var documentHeight = $(document).height();
+		
+		if(inProgress == false && documentHeight - windowHeight - scrollTop - 15 < 0){
+			inProgress = true;
+			getList();
+		}
+	});
 	getList();
+	$("#container").hello();
 });
 </script>
 <body>
