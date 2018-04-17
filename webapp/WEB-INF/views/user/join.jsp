@@ -31,7 +31,6 @@
 			<label class="block-label" for="password">패스워드</label> 
 			<form:input id="password" path="password"/><br/>
 			<form:errors style="color:red;" path="password"/>
-
 			<fieldset>
 				<legend>약관동의</legend>
 				<input id="agree-prov" type="checkbox" name="agreeProv" value="y">
