@@ -1,0 +1,23 @@
+	<tr bgcolor="#F2F2F2" height="23" data-no="<%= no %>">
+		<td width="70"  align="center"><a href="<%= detailURL %>"><%= code %></a></td>
+		<td width="70"  align="center"><%= orderDate %></td>
+		<td width="250" align="left">&nbsp;<%= detailURL %></td>
+		<td width="40" align="center"><%= itemCount %></td>
+		<td width="70"  align="right"><%= price %>&nbsp</td>
+		<td width="65"  align="center"><%= oName %></td>
+		<td width="50"  align="center"><%= paymentMethodName %></td>
+		<td width="135" align="center" valign="bottom">
+			<select name="state" style="font-size:9pt; color:black">
+				<option value="주문완료">주문완료</option>
+				<option value="입금대기">입금대기</option>
+				<option value="입금완료">입금완료</option>
+				<option value="배송중">배송중</option>
+				<option value="배송완료">배송완료</option>
+				<option value="주문취소">주문취소</option>
+			</select>&nbsp;
+			<a href="<%= editURL %>" onclick=""><img src="<%= editSrc %>" border="0"></a>
+		</td>
+		<td width="50" align="center" valign="bottom">
+			<a href="<%= deleteURL %>" onclick=""><img src="<%= deleteSrc %>" border="0"></a>
+		</td>
+	</tr>

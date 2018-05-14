@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+    <select id="getList" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+      ORDER BY category_no asc,
+               reg_date desc
+	]]>
+	</select>
+
+	<select id="getNewList" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+         WHERE is_new=true
+           AND state='판매중'
+      ORDER BY reg_date desc
+         LIMIT 0, 8
+	]]>
+	</select>
+
+	<select id="getHitList" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+         WHERE is_hit=true
+           AND state='판매중'
+      ORDER BY reg_date desc
+         LIMIT 0, 8
+	]]>
+	</select>
+
+	<select id="getDiscountList" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+         WHERE discount_rate > 0
+           AND state='판매중'
+      ORDER BY discount_rate desc
+         LIMIT 0, 8
+	]]>
+	</select>
+
+	<select id="getCategoryProductList" parameterType="Long" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+         WHERE category_no = #{_parameter}
+           AND state='판매중'
+      ORDER BY reg_date desc
+	]]>
+	</select>
+
+    <select id="getByNo" parameterType="Long" resultType="productvo">
+	<![CDATA[
+        SELECT P.no as no,
+               code,
+               P.name as name,
+               manufacturer,
+               P.description as description,
+               price,
+               discount_rate as discountRate,
+               state,
+               category_no as categoryNo,
+               C.name as categoryName,
+               is_new as new_,
+               is_hit as hit_,
+               reg_date as regDate
+          FROM PRODUCT P
+          JOIN CATEGORY C ON P.category_no=C.no
+         WHERE P.no=#{_parameter}
+	]]>
+	</select>
+
+    <insert id="insert" parameterType="productvo">
+	<![CDATA[
+        INSERT INTO PRODUCT(
+                no,
+                code,
+                name,
+                manufacturer,
+                description,
+                price,
+                discount_rate,
+                state,
+                category_no,
+                is_new,
+                is_hit,
+                reg_date
+            )
+             VALUES (
+                null,
+                #{code},
+                #{name},
+                #{manufacturer},
+                #{description},
+                #{price},
+                #{discountRate},
+                #{state},
+                #{categoryNo},
+                #{new_},
+                #{hit_},
+                now()
+             )
+	]]>
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
+    <update id="update" parameterType="productvo">
+    <![CDATA[
+        UPDATE PRODUCT
+           SET code=#{code},
+           	   name=#{name},
+           	   category_no=#{categoryNo},
+           	   manufacturer=#{manufacturer},
+           	   price=#{price},
+           	   discount_rate=#{discountRate},
+           	   description=#{description},
+           	   state=#{state},
+           	   is_new=#{new_},
+           	   is_hit=#{hit_}
+         WHERE no=#{no}
+	]]>
+    </update>
+
+    <delete id="delete" parameterType="Long">
+	<![CDATA[
+        DELETE FROM PRODUCT
+              WHERE no=#{no}
+	]]>
+	</delete>
+</mapper>

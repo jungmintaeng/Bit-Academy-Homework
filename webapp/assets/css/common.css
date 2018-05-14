@@ -1,0 +1,141 @@
+body{
+    padding : 10px 0 0 0;
+    font-family: 'Jeju Gothic', serif;
+    margin : 0;
+}
+
+a {
+    font-weight: normal;
+    text-decoration: none;
+}
+
+div.container {
+    text-align : center;
+    width : 1200px;
+    margin : 0 auto;
+    padding : 0;
+}
+
+/* Top Menu */
+.top-menu {
+    padding : 20px 0 30px 0;
+    background : #bfdbff;
+    /*background: url('../images/logobackground.jpg') 0 -100px no-repeat;*/
+    background-size: 1200px;
+}
+
+#manager {
+    text-decoration: none;
+    color : dimgray;
+    font-size: 0.8em;
+}
+
+/* Logo */
+a.logo p {
+    font-weight: bold;
+    font-size : 3em;
+    color : #001522;
+}
+
+a.logo p span {
+    padding-left : 5px;
+    color : #0072bc;
+}
+
+/* Search */
+.search-section {
+    margin : 0 0 0 10px;
+    height : 50px;
+}
+
+#search-bar{
+    margin : 0 0 10px 0;
+    border : 5px groove #0072bc;
+    border-radius : 5px;
+    padding : 10px 10px 10px 10px;
+    font-size: 0.8em;
+}
+
+.search-section a{
+    font-weight: bold;
+    margin : 0;
+    padding : 10px;
+    color : #fff;
+    background-color : #0072bc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Navigation */
+.navigation {
+    text-align : left;
+    display : block;
+    background-color : #0072bc;
+    margin : 0;
+    padding : 0;
+}
+
+.navigation p {
+    font-size : 0.9em;
+    color : white;
+    border-right : 1px solid white;
+    display : inline-block;
+    padding : 5px 10px 5px 10px;
+    margin: 0px 20px 0px 0;
+}
+
+.navigation > a {
+    padding : 5px 3px 5px 3px;
+    font-family: 'Jeju Gothic', serif;
+    display : inline-block;
+    text-decoration: none;
+    color : #fff!important;
+    font-size : 0.9em;
+    margin : 0 20px 0 0;
+}
+
+.navigation .selected {
+    background-color : white;
+    color : #0072bc!important;
+}
+
+.navigation a:hover{
+    color : lightgray!important;
+}
+
+/* Footer */
+
+.company-description strong {
+    color: dimgray;
+    margin-top : 70px;
+    font-size : 1.5em;
+}
+
+.company-description p {
+    color : gray;
+    font-size: 0.7em;
+}
+
+.service-menu {
+    text-align: center;
+    margin : 0;
+    font-size : 0.8em;
+}
+
+.service-menu * {
+    line-height : 20px;
+    display : inline-block;
+    color : dimgray;
+}
+
+.title {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size : 1em;
+    border-bottom : 1px solid #cccccc;
+}
+
+.no-drag {-ms-user-select: none; -moz-user-select: -moz-none;
+    -webkit-user-select: none; -khtml-user-select: none; user-select:none;}

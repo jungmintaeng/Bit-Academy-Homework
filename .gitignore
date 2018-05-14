@@ -1,0 +1,5 @@
+target/
+/.idea
+bitmall.iml
+.settings/
+src/development/

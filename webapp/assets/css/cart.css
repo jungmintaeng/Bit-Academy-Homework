@@ -1,0 +1,44 @@
+a {
+    text-decoration: none;
+    color : black;
+}
+
+a:hover {
+    color : #0072bc;
+}
+
+.cart-list {
+    width : 1200px;
+    text-align: center;
+    border : 1px solid #cccccc;
+}
+
+.cart-list .table-head td {
+    padding: 20px 10px;
+    background : #bfdbff;
+    color : black;
+}
+
+.cart-list img {
+    width : 100px;
+    height : 100px;
+}
+
+span.option-list {
+    color : dimgray;
+}
+
+div.info-container {
+    vertical-align: center;
+    line-height: 30px;
+}
+
+.right {
+    width : 120px;
+    padding : 20px 10px;
+    float: right;
+    margin : 20px 5px;
+    border-radius: 5px;
+    background: #aaaaaa;
+    color : black;
+}

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+    <select id="getList" parameterType="Long" resultType="uservo">
+	<![CDATA[
+	  SELECT
+	  		no,
+	  	  	id,
+	  	  	name, birthdate,
+	  	  	tel_number as telNumber,
+	  	  	phone_number as phoneNumber,
+	  	  	zipcode,
+	  	  	address,
+	  	  	email,
+	  	  	reg_date as regDate,
+	  	  	role
+	    FROM USER
+	ORDER BY reg_date DESC;
+	]]>
+	</select>
+
+	<select id="getUserByNo" parameterType="Long" resultType="uservo">
+	<![CDATA[
+	  SELECT
+	  		no,
+	  	  	id,
+	  	  	name, birthdate,
+	  	  	tel_number as telNumber,
+	  	  	phone_number as phoneNumber,
+	  	  	zipcode,
+	  	  	address,
+	  	  	email,
+	  	  	reg_date as regDate,
+	  	  	role
+	    FROM USER
+	   WHERE no=#{_parameter}
+	]]>
+	</select>
+
+	<select id="getUser" parameterType="uservo" resultType="uservo">
+	<![CDATA[
+	  SELECT
+	  		no,
+	  	  	id,
+	  	  	name,
+	  	  	role
+	    FROM user
+	   WHERE id=#{id}
+	   	 AND password=password(#{password})
+	   	 AND role=#{role}
+	]]>
+	</select>
+
+    <insert id="insert" parameterType="uservo">
+	<![CDATA[
+		INSERT INTO USER (no,
+						  id,
+						  password,
+						  name,
+						  birthdate,
+						  tel_number,
+						  phone_number,
+						  zipcode,
+						  address,
+						  email,
+						  reg_date,
+						  role
+						  )
+			 VALUES (null,
+			 		 #{id},
+			 		 password(#{password}),
+			 		 #{name},
+			 		 #{birthdate},
+			 		 #{telNumber},
+			 		 #{phoneNumber},
+			 		 #{zipcode},
+			 		 #{address},
+			 		 #{email},
+			 		 now(),
+			 		 #{role}
+			 		 )
+	]]>
+	</insert>
+
+	<update id="update" parameterType="uservo">
+	<![CDATA[
+		UPDATE USER
+		   SET name=#{name},
+		   	   birthdate=#{birthdate},
+		   	   tel_number=#{telNumber},
+		   	   phone_number=#{phoneNumber},
+		   	   zipcode=#{zipcode},
+		   	   address=#{address},
+		   	   email=#{email}
+	]]>
+	<if test='password neq "".toString()'>
+	<![CDATA[
+			   password=password(#{password})
+	]]>
+	</if>
+	<![CDATA[
+		 WHERE no=#{no}
+	]]>
+	</update>
+
+    <delete id="delete" parameterType="Long">
+	<![CDATA[
+		DELETE FROM USER
+		WHERE NO=#{_parameter}
+	]]>
+	</delete>
+</mapper>

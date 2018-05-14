@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+    <select id="getList" resultType="ordervo">
+	<![CDATA[
+        SELECT O.no as no,
+               code,
+               o_no as oNo,
+               o_name as oName,
+               o_tel_number as oTelNumber,
+               o_phone_number as oPhoneNumber,
+               o_email as oEmail,
+               o_zipcode as oZipcode,
+               o_address as oAddress,
+               r_name as rName,
+               r_tel_number as rTelNumber,
+               r_phone_number as rPhoneNumber,
+               r_email as rEmail,
+               r_zipcode as rZipcode,
+               r_address as rAddress,
+               requirement,
+               order_date as orderDate,
+               state,
+               payment_method_name as paymentMethodName
+          FROM ORDER_ O
+      ORDER BY order_date desc;
+	]]>
+	</select>
+
+    <select id="getByNo" parameterType="Long" resultType="ordervo">
+	<![CDATA[
+        SELECT no,
+               code,
+               o_no as oNo,
+               o_name as oName,
+               o_tel_number as oTelNumber,
+               o_phone_number as oPhoneNumber,
+               o_email as oEmail,
+               o_zipcode as oZipcode,
+               o_address as oAddress,
+               r_name as rName,
+               r_tel_number as rTelNumber,
+               r_phone_number as rPhoneNumber,
+               r_email as rEmail,
+               r_zipcode as rZipcode,
+               r_address as rAddress,
+               requirement,
+               order_date as orderDate,
+               state,
+               payment_method_name as paymentMethodName
+          FROM ORDER_ O
+         WHERE no=#{_parameter}
+	]]>
+	</select>
+
+    <insert id="insert" parameterType="ordervo">
+	<![CDATA[
+        INSERT INTO ORDER_ (
+               no,
+               code,
+               o_no,
+               o_name,
+               o_tel_number,
+               o_phone_number,
+               o_email,
+               o_zipcode,
+               o_address,
+               r_name,
+               r_tel_number,
+               r_phone_number,
+               r_email,
+               r_zipcode,
+               r_address,
+               requirement,
+               order_date,
+               state,
+               payment_method_name
+             )
+             VALUES (
+               null,
+               #{code},
+               #{oNo},
+               #{oName},
+               #{oTelNumber},
+               #{oPhoneNumber},
+               #{oEmail},
+               #{oZipcode},
+               #{oAddress},
+               #{rName},
+               #{rTelNumber},
+               #{rPhoneNumber},
+               #{rEmail},
+               #{rZipcode},
+               #{rAddress},
+               #{requirement},
+               now(),
+               #{state},
+               #{paymentMethodName}
+             )
+	]]>
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
+    <update id="update" parameterType="ordervo">
+        UPDATE ORDER_
+           SET state=#{state}
+         WHERE no=#{no}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+	<![CDATA[
+        DELETE FROM ORDER_
+         WHERE no=#{_parameter}
+	]]>
+	</delete>
+</mapper>

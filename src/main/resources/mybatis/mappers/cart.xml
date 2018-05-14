@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+    <select id="getList" parameterType="Long" resultType="cartvo">
+	<![CDATA[
+        SELECT C.no as no,
+               C.user_no as userNo,
+               C.product_no as productNo,
+               P.name as productName,
+               P.price as price,
+               P.discount_rate as discountRate,
+               I.save_name as saveName,
+               C.quantity
+          FROM CART C
+          JOIN PRODUCT P ON C.product_no=P.no
+          JOIN IMAGE I ON I.product_no=C.product_no
+         WHERE user_no=#{_parameter}
+           AND I.order_no=0
+    ]]>
+	</select>
+
+    <select id="getByNo" parameterType="Long" resultType="cartvo">
+	<![CDATA[
+        SELECT C.no as no,
+               C.user_no as userNo,
+               C.product_no as productNo,
+               P.name as productName,
+               P.price as price,
+               P.discount_rate as discountRate,
+               I.save_name as saveName,
+               C.quantity
+          FROM CART C
+          JOIN PRODUCT P ON C.product_no=P.no
+          JOIN IMAGE I ON I.product_no=C.product_no
+         WHERE no=#{_parameter}
+           AND I.order_no=0
+    ]]>
+    </select>
+
+    <select id="getQuantity" parameterType="Long" resultType="Long">
+	<![CDATA[
+        SELECT quantity
+          FROM CART
+         WHERE no={_parameter}
+    ]]>
+	</select>
+
+    <select id="checkRedundancy" parameterType="map" resultType="Long">
+        SELECT no
+          FROM CART
+         WHERE user_no=#{userNo}
+           AND product_no=#{productNo}
+    </select>
+
+    <insert id="insert" parameterType="cartvo">
+	<![CDATA[
+        INSERT INTO CART(
+                    no,
+                    user_no,
+                    product_no,
+                    quantity
+             )
+             VALUES (
+                    null,
+                    #{userNo},
+                    #{productNo},
+                    #{quantity}
+             )
+
+	]]>
+        <selectKey keyProperty="no" resultType="Long" order="AFTER">
+            <![CDATA[
+				select last_insert_id()
+			]]>
+        </selectKey>
+	</insert>
+
+    <update id="update" parameterType="map">
+	<![CDATA[
+        UPDATE CART
+           SET quantity=#{quantity}
+         WHERE no=#{cartNo}
+    ]]>
+    </update>
+
+    <update id="addQuantity" parameterType="map">
+	<![CDATA[
+        UPDATE CART
+           SET quantity=quantity + #{quantity}
+         WHERE no=#{cartNo}
+    ]]>
+    </update>
+
+    <delete id="delete" parameterType="Long">
+	<![CDATA[
+        DELETE FROM CART
+              WHERE no=#{_parameter}
+	]]>
+	</delete>
+
+    <delete id="deleteAll" parameterType="Long">
+	<![CDATA[
+        DELETE FROM CART
+              WHERE user_no=#{userNo}
+    ]]>
+	</delete>
+</mapper>

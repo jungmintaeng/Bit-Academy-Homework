@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="faq">
+	<select id="getList" resultType="faqvo">
+	<![CDATA[
+		SELECT no,
+			   writer_no as writerNo,
+			   title,
+			   content
+		  FROM FAQ
+	  ORDER BY no desc
+	]]>
+	</select>
+
+	<select id="getByNo" parameterType="Long" resultType="faqvo">
+	<![CDATA[
+		SELECT no,
+			   writer_no as writerNo,
+			   title,
+			   content
+		  FROM FAQ
+		 WHERE no=#{_parameter}
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="faqvo">
+	<![CDATA[
+		INSERT INTO FAQ (
+				no,
+				writer_no,
+				title,
+				content
+			  )
+			 VALUES (
+			 	null,
+			 	#{writerNo},
+			 	#{title},
+			 	#{content}
+			 )
+	]]>
+		<selectKey keyProperty="no" resultType="Long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="faqvo">
+	<![CDATA[
+		UPDATE FAQ
+		   SET title=#{title},
+		   	   content=#{content}
+		 WHERE no=#{no}
+	]]>
+	</update>
+
+	<delete id="delete" parameterType="Long">
+	<![CDATA[
+		DELETE FROM FAQ
+			  WHERE no=#{_parameter}
+	]]>
+	</delete>
+</mapper>

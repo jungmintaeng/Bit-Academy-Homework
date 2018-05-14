@@ -1,0 +1,77 @@
+.product-list {
+    list-style: none;
+    text-align: left;
+}
+
+.product-list li{
+    margin : 5px 40px;
+    width : 200px;
+    height: 400px;
+    overflow-x: auto;
+    overflow-y: auto;
+    text-align: center;
+    display : inline-block;
+    font-size: 0.8em;
+}
+
+.product-list li a {
+    text-decoration : none;
+}
+
+
+/* 상품 로고 */
+.product-list .cd-case-container {
+    overflow: hidden;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.product-list .cd-case-container span {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width : 200px;
+    height : 200px;
+    background : url("../images/cd_case_white.png") no-repeat;
+    background-size: 200px;
+}
+
+.product-list .cd-case-container img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    z-index: 0;
+}
+
+/*===== 상품 이름, 가격 등 표시 정보 =====*/
+
+/* 상품명 */
+.product-list span.product-name {
+    color : #666666;
+    font-weight : normal;
+}
+
+/* 상품 가격 */
+.product-list span.price-original {
+    font-size : 1.1em;
+}
+
+.product-list span.price-sale {
+    font-size : 1.1em;
+    color : #0072bc;
+}
+
+.product-list span.bold {
+    font-weight: bold;
+}

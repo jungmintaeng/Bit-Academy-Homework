@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ordered_product">
+    <select id="getList" parameterType="Long" resultType="orderedproductvo">
+	<![CDATA[
+        SELECT OP.no as no,
+        	   order_no as orderNo,
+               product_no as productNo,
+               P.name as productName,
+               quantity,
+               price_fixed as priceFixed,
+               discount_rate_fixed as discountRateFixed
+          FROM ORDERED_PRODUCT OP
+          JOIN PRODUCT P ON OP.product_no=P.no
+         WHERE order_no=#{_parameter}
+	]]>
+	</select>
+
+    <insert id="insert" parameterType="orderedproductvo">
+	<![CDATA[
+        INSERT INTO ORDERED_PRODUCT (
+                order_no,
+                product_no,
+                quantity,
+                price_fixed,
+                discount_rate_fixed
+             )
+             VALUES (
+                #{orderNo},
+                #{productNo},
+                #{quantity},
+                (
+                  SELECT price
+                  FROM PRODUCT P
+                  WHERE P.no=#{productNo}
+                ),
+                (
+                  SELECT discount_rate
+                  FROM PRODUCT P
+                  WHERE P.no=#{productNo}
+                )
+             )
+	]]>
+	</insert>
+</mapper>

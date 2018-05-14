@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productoption">
+	<select id="getList" parameterType="Long" resultType="productoptionvo">
+	<![CDATA[
+		SELECT O.no as no,
+			   O.name as name,
+			   O.parent_no as parentNo
+		  FROM PRODUCT_OPTION P
+		  JOIN OPTION_ O ON P.option_no=O.no
+		 WHERE product_no=#{_parameter}
+	]]>
+	</select>
+
+	<insert id="insert" parameterType="productoptionvo">
+	<![CDATA[
+		INSERT INTO PRODUCT_OPTION (
+					product_no,
+					option_no
+			  )
+			 VALUES (
+			 		#{productNo},
+			 		#{optionNo}
+			 )
+	]]>
+	</insert>
+
+	<delete id="delete" parameterType="Long">
+	<![CDATA[
+		DELETE FROM PRODUCT_OPTION
+			  WHERE product_no=#{_parameter}
+	]]>
+	</delete>
+</mapper>

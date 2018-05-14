@@ -1,0 +1,8 @@
+div.hit-product {
+    padding-top : 5px;
+    background-color : #ebf7f7;
+}
+
+div.new-product, div.sale-product {
+    padding-top : 5px;
+}

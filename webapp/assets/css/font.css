@@ -1,0 +1,20 @@
+TD {font-size:9pt;font-family: Verdana,±¼¸²;  letter-spacing:-1px; text-decoration: none;}
+
+.cmfont{font-size:9pt;font-family: Verdana,±¼¸²;  letter-spacing:-1px; text-decoration: none;}
+.cmfont1{font-size:9pt;font-family: Verdana,±¼¸²;  letter-spacing:-1px; text-decoration: none; border:1 solid #cdcdcd;}
+.smfont{font-size:8pt;font-family: µ¸¿ò,±¼¸²;  letter-spacing:-1px; text-decoration: none;}
+.smfont1{font-size:8pt;font-family: µ¸¿ò,±¼¸²;  letter-spacing:0px; text-decoration: none;}
+
+a:link { font-size:9pt; letter-spacing:-1px; font-family:Verdana,µ¸¿ò; color: 5D5D5D;  text-decoration: none;}
+a:visited {font-size:9pt; letter-spacing:-1px; font-family:Verdana,µ¸¿ò; color: 5D5D5D;  text-decoration: none;}
+a:hover { font-size:9pt; letter-spacing:-1px; font-family:Verdana,µ¸¿ò;color: 5D5D5D;  text-decoration: none;}
+
+BODY	{
+    scrollbar-face-color: #F0F0F0;
+    scrollbar-shadow-color: #ffffff;
+    scrollbar-highlight-color: #000000;
+    scrollbar-3dlight-color: #ffffff;
+    scrollbar-darkshadow-color: #000000;
+    scrollbar-track-color: #ffffff;
+    scrollbar-arrow-color: #000000f;
+}

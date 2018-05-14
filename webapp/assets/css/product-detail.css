@@ -1,0 +1,101 @@
+div.content {
+    width : 1000px;
+    margin : 0 auto;
+    padding : 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title {
+    text-align: center;
+}
+
+.left {
+    padding-left : 100px;
+    float : left;
+}
+
+.right {
+    padding-right : 100px;
+    float: right;
+}
+
+table.info {
+    margin : 0;
+    padding : 0;
+    width : 440px;
+    font-size : 0.8em;
+}
+
+table.info td.column{
+    padding : 10px 5px;
+    text-align: left;
+    width : 220px;
+    border-bottom: 1px solid #cccccc;
+}
+
+span.product-name {
+    color : #666666;
+    font-weight : normal;
+}
+
+/* 상품 가격 */
+span.price-sale {
+    color : #0072bc;
+}
+
+span.bold {
+    font-weight: bold;
+}
+
+div.product-detail {
+    margin : 0 auto;
+    padding : 270px 0 0 0;
+    width : 800px;
+}
+
+div.product-detail img{
+    margin : 0;
+    padding : 0;
+    width : 800px;
+}
+
+p.product-description {
+    padding : 0 20px;
+    text-align: left;
+    color : gray;
+    font-size : 0.9em;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.line {
+    width : 100%;
+    border-bottom : 1px solid #cccccc;
+}
+
+td.immediate-purchase, td.go-cart{
+    text-align: center;
+}
+
+td.immediate-purchase a, td.go-cart a{
+    padding : 20px 15px;
+    border-radius: 5px;
+    font-size: 2em;
+}
+
+td.immediate-purchase a {
+    text-align: center;
+    background: #e26d21;
+    color : white;
+}
+
+td.go-cart a {
+    text-align: center;
+    background: #0072bc;
+    color : white;
+}
