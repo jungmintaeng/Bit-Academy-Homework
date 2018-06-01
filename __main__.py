@@ -1,5 +1,4 @@
 import collection
-import config
 
 
 if __name__ == '__main__':
